@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
-import { Space, Table, Input } from "antd";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Table, Input } from "antd";
+import { useNavigate } from "react-router-dom";
 import getCustomers from "../services/customerService";
 import { useQuery } from "react-query";
 import QueryParams from "../../lib/hooks/QueryParams";
