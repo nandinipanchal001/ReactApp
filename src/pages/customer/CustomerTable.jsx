@@ -6,10 +6,15 @@ import { useQuery } from "react-query";
 
 const CustomerTable = () => {
   let filters = { id: "1" };
-  const { data } = useQuery("customer", getCustomers(filters));
+
+  const { data, error } = useQuery(["customer", filters], () =>
+    getCustomers(filters)
+  );
+
   const customers = _.get(data, "customers") || [];
   const count = _.get(data, "count");
-
+  
+  console.log("customers", data, error);
   const columns = [
     {
       title: "CGID",
