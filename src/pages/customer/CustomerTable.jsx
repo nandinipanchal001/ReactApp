@@ -1,11 +1,18 @@
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import { Space, Table, Tag } from "antd";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import getCustomers from "../services/customerService";
 import { useQuery } from "react-query";
+import QueryParams from "../../lib/hooks/QueryParams";
+import FilterUtils from "../../utils/filterUtils";
 
 const CustomerTable = () => {
-  let filters = { id: "1" };
+  let { pageNo } = QueryParams();
+  const navigateTo = useNavigate();
+  const [filters,setFilters]=useState({pageNo:1,pageSize:50})
+
+// let filters = { id: "1" };
 
   const { data, error } = useQuery(["customer", filters], () =>
     getCustomers(filters)
@@ -13,8 +20,9 @@ const CustomerTable = () => {
 
   const customers = _.get(data, "customers") || [];
   const count = _.get(data, "count");
-  
-  console.log("customers", data, error);
+
+  console.log("pageSize", filters);
+
   const columns = [
     {
       title: "CGID",
