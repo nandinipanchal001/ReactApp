@@ -75,7 +75,7 @@ const CustomerTable = () => {
   ];
 
   return (
-    <>
+    <div className="content">
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <FilterInput
@@ -120,7 +120,7 @@ const CustomerTable = () => {
         </div>
       </div>
       <Table columns={columns} dataSource={customers} />;
-    </>
+    </div>
   );
 };
 export default CustomerTable;

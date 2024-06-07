@@ -2,3 +2,24 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #5F1397;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+.sidebar li{
+    color:white
+}
+
+.content {
+    margin-left: 250px;
+    padding: 1px 16px;
+    height: 1000px;
+}
