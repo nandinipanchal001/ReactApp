@@ -6,7 +6,7 @@ import getCustomers from "../services/customerService";
 import { useQuery } from "react-query";
 import QueryParams from "../../lib/hooks/QueryParams";
 import FilterUtils from "../../utils/filterUtils";
-import FilterInput from "./FIlterTextField";
+import FilterInput from "./FilterTextField";
 
 const CustomerTable = () => {
   let { cgid, name, mobile, email } = QueryParams();
