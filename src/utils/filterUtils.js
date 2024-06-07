@@ -18,15 +18,6 @@ const FilterUtils ={
         });
         return pathname + '?' + searchParams.toString();
       },
-      removeUrl(dataIndex) {
-        let pathname = window.location.pathname;
-        let url = new URL(window.location.href);
-        let searchParams = new URLSearchParams(url.search);
-        if (searchParams.has(dataIndex)) {
-          searchParams.delete(dataIndex);
-        }
-        return pathname + '?' + searchParams.toString();
-      },
 }
 
 export default FilterUtils;
