@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import getCustomers from "../services/customerService";
 import { useQuery } from "react-query";
 import QueryParams from "../../lib/hooks/QueryParams";
+import { removeDuplicates } from "../../utils/utils";
 import FilterUtils from "../../utils/filterUtils";
 import FilterInput from "./FilterTextField";
 import { IoSearch } from "react-icons/io5";
 import { VscRefresh } from "react-icons/vsc";
-
 
 const CustomerTable = () => {
   let { cgid, name, mobile, email } = QueryParams();
@@ -17,9 +17,33 @@ const CustomerTable = () => {
   const [filters, setFilters] = useState({ pageNo: 1, pageSize: 50 });
   const [values, setValues] = useState({ name, cgid, mobile, email });
 
-  const { data } = useQuery(["customer", cgid, name, mobile, email], () =>
-    getCustomers(filters)
+  const { data } = useQuery(
+    ["customer", cgid, name, mobile, email, filters],
+    () => getCustomers(filters)
   );
+
+  
+  /***
+   * 
+   * Keep filters consistent even after page refresh
+   */
+  useEffect(() => {
+    if (cgid || name || mobile || email) {
+      let params = {
+        cgid,
+        name,
+        mobile,
+        email,
+      };
+      const newParams = removeDuplicates(params);
+      setFilters({
+        ...filters,
+        ...newParams,
+      });
+    }
+  }, [cgid, name, mobile, email]);
+
+  console.log('useparams',cgid, name, mobile, email,filters)
 
   const customers = _.get(data, "customers") || [];
   //   const count = _.get(data, "count");
@@ -80,6 +104,10 @@ const CustomerTable = () => {
   return (
     <div className="content">
       <div className="px-10 pt-20">
+        <div className="flex flex-row justify-between">
+          <h3>Customer</h3>
+          <div className="order-last">Create</div>
+        </div>
         <div className="flex flex-row p-3 bg-[#ffffff] justify-between">
           <div className="flex flex-row gap-3">
             <FilterInput
@@ -119,8 +147,8 @@ const CustomerTable = () => {
             />
           </div>
           <div className="flex flex-row order-last gap-6">
-            <IoSearch size={24} onClick={() => onFilter()}/>
-            <VscRefresh size={24} onClick={() => onReset()}/>
+            <IoSearch size={24} onClick={() => onFilter()} />
+            <VscRefresh size={24} onClick={() => onReset()} />
           </div>
         </div>
         <Table columns={columns} dataSource={customers} />
