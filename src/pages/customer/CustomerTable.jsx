@@ -225,6 +225,7 @@ const CustomerTable = () => {
           onChange={(page, pageSize) => {
             handlePageChange({ current: page, pageSize: pageSize });
           }}
+          className="flex justify-end p-4 bg-[#ffffff]"
         />
       </div>
     </div>
