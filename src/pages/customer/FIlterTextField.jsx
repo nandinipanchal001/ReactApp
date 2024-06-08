@@ -12,6 +12,7 @@ const FilterInput = ({ setValues, values, placeholder,filterValue }) => {
           [filterValue]: e.target.value,
         });
       }}
+     className="w-32 p-2"
     />
   );
 };
