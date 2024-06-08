@@ -13,6 +13,7 @@ import { IoSearch } from "react-icons/io5";
 import { VscRefresh } from "react-icons/vsc";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { IoMdCloseCircle } from "react-icons/io";
+import CustomAntdTable from '../../common/CustomAntdTable'
 
 const CustomerTable = () => {
   let { pageNo, cgid, name, mobile, email, recordStatus } = QueryParams();
@@ -220,7 +221,7 @@ const CustomerTable = () => {
             <VscRefresh size={24} onClick={() => onReset()} />
           </div>
         </div>
-        <Table columns={columns} dataSource={customers} pagination={false} />
+        <CustomAntdTable columns={columns} dataSource={customers} pagination={false} />
         <Pagination
           total={count}
           current={pageNo}
