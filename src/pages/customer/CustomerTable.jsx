@@ -100,7 +100,7 @@ const CustomerTable = () => {
    * Filter reset function
    */
   const onReset = () => {
-    setFilters({ pageNo: 1, pageSize: 50 });
+    setFilters({ pageNo: 1, pageSize: 10 });
     setValues({});
     navigateTo("/customer");
   };
