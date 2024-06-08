@@ -13,7 +13,6 @@ import { VscRefresh } from "react-icons/vsc";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { IoMdCloseCircle } from "react-icons/io";
 
-
 const CustomerTable = () => {
   let { cgid, name, mobile, email } = QueryParams();
   const navigateTo = useNavigate();
@@ -25,9 +24,8 @@ const CustomerTable = () => {
     () => getCustomers(filters)
   );
 
-
   /***
-   * 
+   *
    * Keep filters consistent even after page refresh
    */
   useEffect(() => {
@@ -46,7 +44,7 @@ const CustomerTable = () => {
     }
   }, [cgid, name, mobile, email]);
 
-  console.log('useparams',cgid, name, mobile, email,filters)
+  console.log("useparams", cgid, name, mobile, email, filters);
 
   const customers = _.get(data, "customers") || [];
   //   const count = _.get(data, "count");
@@ -101,18 +99,22 @@ const CustomerTable = () => {
       title: "Status",
       dataIndex: "recordStatus",
       key: "recordStatus",
-      render:(row) =>{
-        return row ? <IoMdCheckmarkCircle size={18} color="green"/> : <IoMdCloseCircle size={18} color="red"/>
-      }
+      render: (row) => {
+        return row ? (
+          <IoMdCheckmarkCircle size={18} color="green" />
+        ) : (
+          <IoMdCloseCircle size={18} color="red" />
+        );
+      },
     },
   ];
 
   return (
     <div className="content">
-      <div className="px-10 pt-20">
-        <div className="flex flex-row justify-between">
-          <h3>Customer</h3>
-          <div className="order-last">Create</div>
+      <div className="px-10">
+        <div className="flex flex-row justify-between pb-12">
+          <h3 className="text-3xl">Customer</h3>
+          <div className="text-lg order-last bg-[#ffed00] py-0.5 px-4">+ Create</div>
         </div>
         <div className="flex flex-row p-3 bg-[#ffffff] justify-between">
           <div className="flex flex-row gap-3">
@@ -129,15 +131,13 @@ const CustomerTable = () => {
               filterValue={"name"}
             />
 
-            <Input
-              placeholder="Dial Code"
-              onChange={(e) => {
-                // setFilters({
-                //     ...filters,
-                //     cgid:e.target.value
-                // })
-              }}
+            <FilterInput
+              values={values}
+              setValues={setValues}
+              placeholder={"Dial Code"}
+              filterValue={"dialCode"}
             />
+
             <FilterInput
               values={values}
               setValues={setValues}
