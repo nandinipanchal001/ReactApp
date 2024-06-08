@@ -9,8 +9,8 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <SideBar/>
       <Router>
+      <SideBar/>
         <Routes>
           <Route path="/customer" element={<CustomerTable />} />
         </Routes>

@@ -7,6 +7,9 @@ import { useQuery } from "react-query";
 import QueryParams from "../../lib/hooks/QueryParams";
 import FilterUtils from "../../utils/filterUtils";
 import FilterInput from "./FilterTextField";
+import { IoSearch } from "react-icons/io5";
+import { VscRefresh } from "react-icons/vsc";
+
 
 const CustomerTable = () => {
   let { cgid, name, mobile, email } = QueryParams();
@@ -76,50 +79,52 @@ const CustomerTable = () => {
 
   return (
     <div className="content">
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <FilterInput
-            values={values}
-            setValues={setValues}
-            placeholder={"CG ID"}
-            filterValue={"cgid"}
-          />
-          <FilterInput
-            values={values}
-            setValues={setValues}
-            placeholder={"Name"}
-            filterValue={"name"}
-          />
+      <div className="px-10 pt-20">
+        <div className="flex flex-row p-3 bg-[#ffffff] justify-between">
+          <div className="flex flex-row gap-3">
+            <FilterInput
+              values={values}
+              setValues={setValues}
+              placeholder={"CG ID"}
+              filterValue={"cgid"}
+            />
+            <FilterInput
+              values={values}
+              setValues={setValues}
+              placeholder={"Name"}
+              filterValue={"name"}
+            />
 
-          <Input
-            placeholder="Dial Code"
-            onChange={(e) => {
-              // setFilters({
-              //     ...filters,
-              //     cgid:e.target.value
-              // })
-            }}
-          />
-          <FilterInput
-            values={values}
-            setValues={setValues}
-            placeholder={"Mobile"}
-            filterValue={"mobile"}
-          />
+            <Input
+              placeholder="Dial Code"
+              onChange={(e) => {
+                // setFilters({
+                //     ...filters,
+                //     cgid:e.target.value
+                // })
+              }}
+            />
+            <FilterInput
+              values={values}
+              setValues={setValues}
+              placeholder={"Mobile"}
+              filterValue={"mobile"}
+            />
 
-          <FilterInput
-            values={values}
-            setValues={setValues}
-            placeholder={"Email"}
-            filterValue={"email"}
-          />
+            <FilterInput
+              values={values}
+              setValues={setValues}
+              placeholder={"Email"}
+              filterValue={"email"}
+            />
+          </div>
+          <div className="flex flex-row order-last gap-6">
+            <IoSearch size={24} onClick={() => onFilter()}/>
+            <VscRefresh size={24} onClick={() => onReset()}/>
+          </div>
         </div>
-        <div style={{ justifyContent: "flex-end" }}>
-          <button onClick={() => onFilter()}>search</button>
-          <button onClick={() => onReset()}>reeset</button>
-        </div>
+        <Table columns={columns} dataSource={customers} />
       </div>
-      <Table columns={columns} dataSource={customers} />;
     </div>
   );
 };
