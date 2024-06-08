@@ -1,7 +1,13 @@
 import React from "react";
 import { Input } from "antd";
 
-const FilterInput = ({ setValues, values, placeholder,filterValue }) => {
+const FilterInput = ({
+  setValues,
+  values,
+  placeholder,
+  filterValue,
+  onFilter,
+}) => {
   return (
     <Input
       placeholder={placeholder}
@@ -12,7 +18,8 @@ const FilterInput = ({ setValues, values, placeholder,filterValue }) => {
           [filterValue]: e.target.value,
         });
       }}
-     className="w-32 p-2"
+      onPressEnter={onFilter}
+      className="w-32 p-2"
     />
   );
 };

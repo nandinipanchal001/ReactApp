@@ -175,12 +175,14 @@ const CustomerTable = () => {
               setValues={setValues}
               placeholder={"CG ID"}
               filterValue={"cgid"}
+              onFilter={onFilter}
             />
             <FilterInput
               values={values}
               setValues={setValues}
               placeholder={"Name"}
               filterValue={"name"}
+              onFilter={onFilter}
             />
 
             <FilterInput
@@ -188,6 +190,7 @@ const CustomerTable = () => {
               setValues={setValues}
               placeholder={"Dial Code"}
               filterValue={"dialCode"}
+              onFilter={onFilter}
             />
 
             <FilterInput
@@ -195,6 +198,7 @@ const CustomerTable = () => {
               setValues={setValues}
               placeholder={"Mobile"}
               filterValue={"mobile"}
+              onFilter={onFilter}
             />
 
             <FilterInput
@@ -202,6 +206,7 @@ const CustomerTable = () => {
               setValues={setValues}
               placeholder={"Email"}
               filterValue={"email"}
+              onFilter={onFilter}
             />
             <FilterDropDown
               values={values}
