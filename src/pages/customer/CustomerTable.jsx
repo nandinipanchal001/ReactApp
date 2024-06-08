@@ -2,8 +2,8 @@ import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import { Table, Pagination } from "antd";
 import { useNavigate } from "react-router-dom";
-import getCustomers from "../services/customerService";
 import { useQuery } from "react-query";
+import getCustomers from "../services/customerService";
 import QueryParams from "../../lib/hooks/QueryParams";
 import { removeDuplicates } from "../../utils/utils";
 import FilterUtils from "../../utils/filterUtils";
@@ -18,7 +18,10 @@ const CustomerTable = () => {
   let { pageNo, cgid, name, mobile, email, recordStatus } = QueryParams();
   const navigateTo = useNavigate();
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [filters, setFilters] = useState({ pageNo: pageNo || 1, pageSize: rowsPerPage });
+  const [filters, setFilters] = useState({
+    pageNo: pageNo || 1,
+    pageSize: rowsPerPage,
+  });
   const [values, setValues] = useState({
     name,
     cgid,
@@ -27,10 +30,16 @@ const CustomerTable = () => {
     recordStatus,
   });
 
+  /**
+   * Fetch call to get customers
+   */
   const { data } = useQuery(
     ["customer", cgid, name, mobile, email, recordStatus, filters],
     () => getCustomers(filters)
   );
+
+  const customers = _.get(data, "customers") || [];
+  const count = _.get(data, "count");
 
   /***
    *
@@ -53,9 +62,9 @@ const CustomerTable = () => {
     }
   }, [cgid, name, mobile, email, recordStatus]);
 
-  const customers = _.get(data, "customers") || [];
-  const count = _.get(data, "count");
-
+  /**
+   * If route is not following pageNo and then add it forcefully in order to set pageNo
+   */
   useEffect(() => {
     if (!pageNo) {
       pageNo = 1;
@@ -63,6 +72,9 @@ const CustomerTable = () => {
     }
   }, [pageNo]);
 
+  /**
+   * Handle pagination change
+   */
   const handlePageChange = (updatePage) => {
     if (!_.isEmpty(updatePage)) {
       let params = {
@@ -70,31 +82,37 @@ const CustomerTable = () => {
       };
       navigateTo(FilterUtils.createUrl(params));
 
-      console.log('updatePage',updatePage)
-      if (updatePage.pageSize !== rowsPerPage || updatePage.current !== pageNo) {
+      if (
+        updatePage.pageSize !== rowsPerPage ||
+        updatePage.current !== pageNo
+      ) {
         setRowsPerPage(updatePage.pageSize);
         setFilters({
           ...filters,
-          pageNo:updatePage.current,
-          pageSize:updatePage.pageSize
-        })
+          pageNo: updatePage.current,
+          pageSize: updatePage.pageSize,
+        });
       }
     }
   };
-    console.log("filters", filters,rowsPerPage,pageNo);
 
+  /**
+   * Filter reset function
+   */
   const onReset = () => {
     setFilters({ pageNo: 1, pageSize: 50 });
     setValues({});
     navigateTo("/customer");
   };
 
+  /**
+   * Filter function
+   *  */
   const onFilter = () => {
     let params = {
       ...filters,
       ...values,
     };
-    console.log("params", params);
     setFilters(params);
     navigateTo(FilterUtils.createUrl(params));
   };
@@ -197,7 +215,7 @@ const CustomerTable = () => {
             <VscRefresh size={24} onClick={() => onReset()} />
           </div>
         </div>
-        <Table columns={columns} dataSource={customers} pagination={false}/>
+        <Table columns={columns} dataSource={customers} pagination={false} />
         <Pagination
           total={count}
           current={pageNo}
