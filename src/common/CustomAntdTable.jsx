@@ -15,7 +15,7 @@ const CustomAntdTable = (props) => {
       <Table
         dataSource={dataSource}
         columns={columns}
-        bordered
+        bordered={false}
         pagination={false}
         scroll={{ x: 500 }}
       />
