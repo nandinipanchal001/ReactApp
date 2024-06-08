@@ -10,6 +10,9 @@ import FilterUtils from "../../utils/filterUtils";
 import FilterInput from "./FilterTextField";
 import { IoSearch } from "react-icons/io5";
 import { VscRefresh } from "react-icons/vsc";
+import { IoMdCheckmarkCircle } from "react-icons/io";
+import { IoMdCloseCircle } from "react-icons/io";
+
 
 const CustomerTable = () => {
   let { cgid, name, mobile, email } = QueryParams();
@@ -22,7 +25,7 @@ const CustomerTable = () => {
     () => getCustomers(filters)
   );
 
-  
+
   /***
    * 
    * Keep filters consistent even after page refresh
@@ -98,6 +101,9 @@ const CustomerTable = () => {
       title: "Status",
       dataIndex: "recordStatus",
       key: "recordStatus",
+      render:(row) =>{
+        return row ? <IoMdCheckmarkCircle size={18} color="green"/> : <IoMdCloseCircle size={18} color="red"/>
+      }
     },
   ];
 
